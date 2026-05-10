@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WeddingBoy™ Isométrico</title>
+<title>Estancia Amelie - Wedding Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -35,7 +35,7 @@ h1{
   background:linear-gradient(160deg,#d4b888 0%,#9a7848 40%,#7a5830 100%);
   border-radius:16px 16px 48px 16px;
   padding:14px 14px 22px;
-  width:900px;max-width:100%;
+  width:940px;max-width:100%;
   box-shadow:4px 4px 0 #5a4020,8px 8px 0 #3a2810,0 30px 80px rgba(0,0,0,0.9);
 }
 .console-stripe{
@@ -52,11 +52,11 @@ h1{
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 .led-txt{font-family:var(--pixel);font-size:5px;color:var(--gold);letter-spacing:1px;}
 
-.screen-wrap{display:flex;gap:8px;min-height:460px;}
+.screen-wrap{display:flex;gap:8px;min-height:480px;}
 
 /* ── LEFT SIDEBAR ── */
 .sidebar{
-  width:196px;flex-shrink:0;
+  width:210px;flex-shrink:0;
   background:var(--panel);border-radius:8px;
   border:1px solid #3a2a18;
   display:flex;flex-direction:column;
@@ -112,10 +112,6 @@ h1{
 }
 .ftab:hover{background:#2a2018;color:var(--txt2);}
 .ftab.active{background:var(--green3);color:#fff;border-color:var(--green);}
-.ftab.fnv{border-color:#3a5a90;}
-.ftab.fnv.active{background:#2a4a7a;border-color:#4a6aaa;}
-.ftab.fna{border-color:#8a2060;}
-.ftab.fna.active{background:#7a1858;border-color:#aa3080;}
 
 /* GUEST LIST */
 .guest-scroll{
@@ -150,9 +146,6 @@ h1{
 .ctr{background:#1a1208;border-radius:5px;padding:4px 6px;border:1px solid #2a2018;}
 .ctr-label{font-size:8px;color:var(--txt3);}
 .ctr-val{font-size:13px;font-weight:700;color:var(--txt);}
-.ctr.novio .ctr-val{color:#6090e0;}
-.ctr.novia .ctr-val{color:#e06090;}
-.ctr.wide{grid-column:span 2;}
 
 /* STATS BAR */
 .stats-bar{
@@ -212,15 +205,10 @@ canvas{display:block;width:100%;height:100%;image-rendering:pixelated;cursor:def
 .modal-box{
   background:var(--panel2);border:1px solid #5a4a28;border-radius:12px;
   padding:20px;display:flex;flex-direction:column;gap:10px;
-  min-width:260px;max-width:400px;max-height:88vh;overflow-y:auto;
-  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+  min-width:260px;max-width:400px;
 }
 .modal-title{font-family:var(--pixel);font-size:7px;color:var(--gold2);text-align:center;}
-.modal-note{font-size:11px;color:var(--txt3);text-align:center;line-height:1.6;}
-.modal-acts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
-.m-label{font-size:10px;font-weight:600;color:var(--txt2);margin-bottom:3px;}
-textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
-#fileInput{display:none;}
+.modal-acts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
 
 .save-toast{
   position:fixed;top:14px;right:14px;
@@ -236,52 +224,14 @@ textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
 <h1>✦ WEDDING PLANNER ✦</h1>
 <div class="save-toast" id="saveToast">💾 Guardado</div>
 
-<!-- MODALS -->
-<div class="modal" id="importModal">
-  <div class="modal-box">
-    <div class="modal-title">IMPORTAR</div>
-    <div class="modal-note">Subí un .xlsx o pegá nombres (uno por línea)</div>
-    <textarea class="s-inp" id="importText" placeholder="Ana García&#10;Juan Pérez&#10;..." rows="5"></textarea>
-    <div><div class="m-label">Grupo:</div>
-      <select class="s-select" id="importGroup">
-        <option value="novio">💙 Novio</option><option value="novia">💗 Novia</option>
-        <option value="fnovio">Familia Novio</option><option value="fnovia">Familia Novia</option>
-        <option value="anovio">Amigos Novio</option><option value="anovia">Amigos Novia</option>
-        <option value="acomun">Amigos en Común</option>
-      </select>
-    </div>
-    <div class="modal-acts">
-      <button class="s-btn s-btn-secondary" onclick="document.getElementById('fileInput').click()">📂 Archivo</button>
-      <button class="s-btn s-btn-primary" onclick="doImport()">Importar ✓</button>
-      <button class="s-btn s-btn-secondary" onclick="closeImport()">Cancelar</button>
-    </div>
-    <div class="modal-note" id="importCount" style="color:var(--green2)"></div>
-  </div>
-</div>
-<input type="file" id="fileInput" accept=".txt,.csv,.xlsx" onchange="loadFile(event)">
-
-<div class="modal" id="exportModal">
-  <div class="modal-box">
-    <div class="modal-title">EXPORTAR</div>
-    <div class="modal-acts">
-      <button class="s-btn s-btn-primary" onclick="exportXLSX()">📊 Excel</button>
-      <button class="s-btn s-btn-secondary" onclick="exportTxt()">📄 TXT</button>
-      <button class="s-btn s-btn-secondary" onclick="exportJSON()">🔧 JSON</button>
-    </div>
-    <div class="modal-note">Excel: mismo formato que importación</div>
-    <div class="modal-acts"><button class="s-btn s-btn-secondary" onclick="closeExport()">Cerrar</button></div>
-  </div>
-</div>
-
 <div class="modal" id="setupModal">
   <div class="modal-box">
     <div class="modal-title">GENERAR MESAS</div>
-    <div><div class="m-label">Cantidad de mesas</div><input class="s-inp" id="setupCount" type="number" value="5" min="1" max="40"></div>
-    <div><div class="m-label">Capacidad por mesa</div><input class="s-inp" id="setupCap" type="number" value="8" min="1" max="30"></div>
-    <div><div class="m-label">Prefijo</div><input class="s-inp" id="setupPrefix" value="Mesa" maxlength="10"></div>
+    <div><div class="s-label">Cantidad de mesas</div><input class="s-inp" id="setupCount" type="number" value="5" min="1" max="40"></div>
+    <div><div class="s-label">Capacidad por mesa</div><input class="s-inp" id="setupCap" type="number" value="8" min="1" max="30"></div>
+    <div><div class="s-label">Prefijo</div><input class="s-inp" id="setupPrefix" value="Mesa" maxlength="10"></div>
     <div class="modal-acts">
       <button class="s-btn s-btn-primary" onclick="doSetup(false)">Agregar</button>
-      <button class="s-btn" style="background:#5a2018;color:#ff9090" onclick="doSetup(true)">Reemplazar todo</button>
       <button class="s-btn s-btn-secondary" onclick="closeSetup()">Cancelar</button>
     </div>
   </div>
@@ -290,8 +240,8 @@ textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
 <div class="modal" id="tModal">
   <div class="modal-box" style="min-width:200px">
     <div class="modal-title">EDITAR MESA</div>
-    <div><div class="m-label">Nombre</div><input class="s-inp" id="mName" maxlength="14"></div>
-    <div><div class="m-label">Capacidad</div><input class="s-inp" id="mCap" type="number" min="1" max="30"></div>
+    <div><div class="s-label">Nombre</div><input class="s-inp" id="mName" maxlength="14"></div>
+    <div><div class="s-label">Capacidad</div><input class="s-inp" id="mCap" type="number" min="1" max="30"></div>
     <div class="modal-acts">
       <button class="s-btn s-btn-primary" onclick="saveModal()">Guardar</button>
       <button class="s-btn s-btn-secondary" onclick="closeModal()">Cancelar</button>
@@ -316,21 +266,16 @@ textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
           </div>
           <div>
             <div class="s-label">Grupo</div>
-            <select class="s-select" id="groupSel" onchange="syncColor()">
-              <option value="novio">💙 Novio</option>
-              <option value="novia">💗 Novia</option>
-              <option value="fnovio">👔 Familia Novio</option>
-              <option value="fnovia">👗 Familia Novia</option>
-              <option value="anovio">🤝 Amigos Novio</option>
-              <option value="anovia">🤝 Amigos Novia</option>
+            <select class="s-select" id="groupSel">
+              <option value="fnovio">👔 Familia Ramiro</option>
+              <option value="fnovia">👗 Familia Clari</option>
+              <option value="anovio">🤝 Amigos Ramiro</option>
+              <option value="anovia">🤝 Amigos Clari</option>
               <option value="acomun">🧡 Amigos Común</option>
             </select>
           </div>
-          <div class="btn-row">
-            <button class="s-btn s-btn-primary" onclick="addGuest()">+ Agregar</button>
-            <button class="s-btn s-btn-secondary" onclick="openImport()">📂</button>
-          </div>
-          <div>
+          <button class="s-btn s-btn-primary" onclick="addGuest()">+ Agregar</button>
+          <div style="margin-top:6px;">
             <div class="s-label" style="margin-bottom:4px">Mesas</div>
             <div class="btn-row" style="margin-bottom:4px">
               <button class="s-btn s-btn-secondary" style="flex:1;font-size:10px" onclick="openSetup()">⚙ Generar</button>
@@ -342,43 +287,21 @@ textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
           </div>
         </div>
 
-        <!-- FILTER -->
         <div class="filter-wrap">
-          <div class="filter-label">FILTRAR POR GRUPO</div>
+          <div class="filter-label">FILTRAR</div>
           <div class="filter-tabs">
             <div class="ftab active" data-f="all" onclick="setFilter('all')">Todos</div>
-            <div class="ftab fnv" data-f="novio" onclick="setFilter('novio')">💙</div>
-            <div class="ftab fna" data-f="novia" onclick="setFilter('novia')">💗</div>
-            <div class="ftab fnv" data-f="fnovio" onclick="setFilter('fnovio')">👔</div>
-            <div class="ftab fna" data-f="fnovia" onclick="setFilter('fnovia')">👗</div>
-            <div class="ftab fnv" data-f="anovio" onclick="setFilter('anovio')">🤝N</div>
-            <div class="ftab fna" data-f="anovia" onclick="setFilter('anovia')">🤝V</div>
-            <div class="ftab" data-f="acomun" onclick="setFilter('acomun')">🧡</div>
+            <div class="ftab" data-f="fnovio" onclick="setFilter('fnovio')">Fam.R</div>
+            <div class="ftab" data-f="fnovia" onclick="setFilter('fnovia')">Fam.C</div>
           </div>
         </div>
 
-        <!-- LIST -->
         <div class="guest-scroll" id="guestList"></div>
 
-        <!-- STATS -->
         <div class="stats-bar">
           <div class="stat-pill"><div class="sv" id="sTot">0</div><div class="sl">TOTAL</div></div>
           <div class="stat-pill"><div class="sv" style="color:#6ac060" id="sSeat">0</div><div class="sl">MESA</div></div>
           <div class="stat-pill"><div class="sv" style="color:#e09040" id="sFree">0</div><div class="sl">LIBRES</div></div>
-        </div>
-
-        <!-- COUNTERS -->
-        <div class="counters-wrap">
-          <div class="counters-title">POR GRUPO</div>
-          <div class="counter-grid">
-            <div class="ctr novio"><div class="ctr-label">💙 Novio</div><div class="ctr-val" id="cNovio">0</div></div>
-            <div class="ctr novia"><div class="ctr-label">💗 Novia</div><div class="ctr-val" id="cNovia">0</div></div>
-            <div class="ctr"><div class="ctr-label">👔 Fam.Nov</div><div class="ctr-val" id="cFNovio">0</div></div>
-            <div class="ctr"><div class="ctr-label">👗 Fam.Nov</div><div class="ctr-val" id="cFNovia">0</div></div>
-            <div class="ctr"><div class="ctr-label">🤝 Ami.Nov</div><div class="ctr-val" id="cANovio">0</div></div>
-            <div class="ctr"><div class="ctr-label">🤝 Ami.Nov</div><div class="ctr-val" id="cANovia">0</div></div>
-            <div class="ctr wide"><div class="ctr-label">🧡 Amigos Común</div><div class="ctr-val" id="cAComun">0</div></div>
-          </div>
         </div>
       </div>
 
@@ -401,8 +324,8 @@ textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
     </div>
     <div class="ab-btns">
       <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-        <button class="ab-btn b" onclick="openExport()">B</button>
-        <span style="font-family:var(--pixel);font-size:4px;color:#5a4020">EXPORT</span>
+        <button class="ab-btn b" onclick="clearAll()">B</button>
+        <span style="font-family:var(--pixel);font-size:4px;color:#5a4020">RESET</span>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
         <button class="ab-btn a" onclick="autoAssign()">A</button>
@@ -410,15 +333,14 @@ textarea.s-inp{resize:vertical;min-height:90px;line-height:1.7;}
       </div>
     </div>
   </div>
-  <div class="console-brand">WeddingBoy™ Isometric Edition</div>
+  <div class="console-brand">Estancia Amelie - WeddingBoy™ Isometric Edition</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 // ═══════════════════════════════════════════════
-//  ISOMETRIC ENGINE
+//  ISOMETRIC ENGINE & Z-SORTING FIXES
 // ═══════════════════════════════════════════════
-const TILE_W = 32, TILE_H = 16; // isometric tile size
+const TILE_W = 32, TILE_H = 16;
 
 function isoToScreen(gx, gy) {
   return {
@@ -427,46 +349,22 @@ function isoToScreen(gx, gy) {
   };
 }
 
-function screenToIso(sx, sy, originX, originY) {
-  const rx = sx - originX, ry = sy - originY;
-  const gx = (rx / (TILE_W / 2) + ry / (TILE_H / 2)) / 2;
-  const gy = (ry / (TILE_H / 2) - rx / (TILE_W / 2)) / 2;
-  return { gx, gy };
-}
-
-// ═══════════════════════════════════════════════
-//  PIXEL ART DRAW UTILS
-// ═══════════════════════════════════════════════
 function px(ctx, x, y, w, h, color) {
   ctx.fillStyle = color; ctx.fillRect(x, y, w, h);
 }
 
-// ── ISO TILE ──────────────────────────────────
-function drawIsoTile(ctx, sx, sy, topColor, leftColor, rightColor) {
-  const tw = TILE_W, th = TILE_H, half = tw / 2, qh = th / 2;
-  // Top face (diamond)
-  ctx.beginPath();
-  ctx.moveTo(sx, sy);
-  ctx.lineTo(sx + half, sy - qh);
-  ctx.lineTo(sx + tw, sy);
-  ctx.lineTo(sx + half, sy + qh);
-  ctx.closePath();
-  ctx.fillStyle = topColor; ctx.fill();
-  ctx.strokeStyle = 'rgba(0,0,0,0.08)'; ctx.lineWidth = 0.5; ctx.stroke();
-}
-
 // ── ISO TABLE ─────────────────────────────────
 function drawIsoTable(ctx, sx, sy, w, h, seated, capacity, name, hovered) {
-  const TH = 14; // table height in px
+  const TH = 14; 
   const tw = w, th = h;
-  // Table colours — warm mahogany palette
-  const top    = '#c8956a';
-  const topH   = '#daa878';
-  const left   = '#8a4a28';
-  const right  = '#6a3818';
-  const edge   = '#5a2808';
+  // Paleta adaptada (madera rústica tipo estancia)
+  const top    = '#b89470';
+  const topH   = '#c8a480';
+  const left   = '#8a6248';
+  const right  = '#6a4830';
+  const edge   = '#4a2818';
 
-  // Drop shadow
+  // Sombra base
   ctx.save();ctx.globalAlpha=0.18;
   ctx.beginPath();
   ctx.moveTo(sx+2,      sy+2);
@@ -477,160 +375,79 @@ function drawIsoTable(ctx, sx, sy, w, h, seated, capacity, name, hovered) {
   ctx.fillStyle='#000';ctx.fill();
   ctx.restore();
 
-  // Left face
-  ctx.beginPath();
-  ctx.moveTo(sx,         sy);
-  ctx.lineTo(sx,         sy+TH);
-  ctx.lineTo(sx+tw/2,    sy+th/4+TH);
-  ctx.lineTo(sx+tw/2,    sy+th/4);
-  ctx.closePath();
-  ctx.fillStyle=left;ctx.fill();
-  ctx.strokeStyle=edge;ctx.lineWidth=0.5;ctx.stroke();
+  // Caras tridimensionales
+  ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(sx,sy+TH); ctx.lineTo(sx+tw/2,sy+th/4+TH); ctx.lineTo(sx+tw/2,sy+th/4); ctx.closePath();
+  ctx.fillStyle=left;ctx.fill(); ctx.strokeStyle=edge;ctx.lineWidth=0.5;ctx.stroke();
 
-  // Right face
-  ctx.beginPath();
-  ctx.moveTo(sx+tw/2,    sy+th/4);
-  ctx.lineTo(sx+tw/2,    sy+th/4+TH);
-  ctx.lineTo(sx+tw,      sy+TH);
-  ctx.lineTo(sx+tw,      sy);
-  ctx.closePath();
-  ctx.fillStyle=right;ctx.fill();
-  ctx.strokeStyle=edge;ctx.lineWidth=0.5;ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(sx+tw/2,sy+th/4); ctx.lineTo(sx+tw/2,sy+th/4+TH); ctx.lineTo(sx+tw,sy+TH); ctx.lineTo(sx+tw,sy); ctx.closePath();
+  ctx.fillStyle=right;ctx.fill(); ctx.strokeStyle=edge;ctx.lineWidth=0.5;ctx.stroke();
 
-  // Top face
-  ctx.beginPath();
-  ctx.moveTo(sx,         sy);
-  ctx.lineTo(sx+tw/2,    sy-th/4);
-  ctx.lineTo(sx+tw,      sy);
-  ctx.lineTo(sx+tw/2,    sy+th/4);
-  ctx.closePath();
-  ctx.fillStyle=hovered?topH:top;ctx.fill();
-  ctx.strokeStyle=hovered?'#f0d080':edge;ctx.lineWidth=hovered?1.5:0.5;ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(sx+tw/2,sy-th/4); ctx.lineTo(sx+tw,sy); ctx.lineTo(sx+tw/2,sy+th/4); ctx.closePath();
+  ctx.fillStyle=hovered?topH:top;ctx.fill(); ctx.strokeStyle=hovered?'#f0d080':edge;ctx.lineWidth=hovered?1.5:0.5;ctx.stroke();
 
-  // Tablecloth on top
+  // Mantel 
   const cPad=5;
-  ctx.beginPath();
-  ctx.moveTo(sx+cPad,        sy);
-  ctx.lineTo(sx+tw/2,        sy-th/4+cPad/2);
-  ctx.lineTo(sx+tw-cPad,     sy);
-  ctx.lineTo(sx+tw/2,        sy+th/4-cPad/2);
-  ctx.closePath();
-  ctx.fillStyle= seated>=capacity ? 'rgba(180,30,50,0.25)' : 'rgba(240,230,200,0.35)';
+  ctx.beginPath(); ctx.moveTo(sx+cPad,sy); ctx.lineTo(sx+tw/2,sy-th/4+cPad/2); ctx.lineTo(sx+tw-cPad,sy); ctx.lineTo(sx+tw/2,sy+th/4-cPad/2); ctx.closePath();
+  ctx.fillStyle= seated>=capacity ? 'rgba(212,64,122,0.25)' : 'rgba(244,240,234,0.35)';
   ctx.fill();
 
-  // Floral centerpiece
   drawFlowerCenter(ctx, sx+tw/2, sy);
 
-  // Plates (small ovals on top face)
-  const cap2 = Math.min(capacity, 8);
+  // Platos
+  const cap2 = Math.min(capacity, 10);
   for (let i=0; i<cap2; i++) {
     const ang = (i/cap2)*Math.PI*2 - Math.PI/2;
     const pr = tw * 0.28;
     const px2 = sx+tw/2 + Math.cos(ang)*pr;
     const py2 = sy + Math.sin(ang)*pr*0.5;
-    // plate oval
-    ctx.beginPath();
-    ctx.ellipse(px2, py2, 4.5, 2.5, 0, 0, Math.PI*2);
-    ctx.fillStyle='#e8d8b8';ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(px2, py2, 3, 1.7, 0, 0, Math.PI*2);
-    ctx.fillStyle='#f8f0e0';ctx.fill();
+    ctx.beginPath(); ctx.ellipse(px2, py2, 4.5, 2.5, 0, 0, Math.PI*2); ctx.fillStyle='#e8d8b8';ctx.fill();
+    ctx.beginPath(); ctx.ellipse(px2, py2, 3, 1.7, 0, 0, Math.PI*2); ctx.fillStyle='#f8f0e0';ctx.fill();
   }
 
-  // Name label above table
+  // Cartelito nombre
   ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
   const label=name.length>11?name.substring(0,10)+'…':name;
   const tw2=ctx.measureText(label).width+10;
   ctx.fillStyle='rgba(15,10,5,0.82)';
-  roundRect(ctx, sx+tw/2-tw2/2, sy-th/4-22, tw2, 13, 3);
-  ctx.fill();
+  roundRect(ctx, sx+tw/2-tw2/2, sy-th/4-22, tw2, 13, 3); ctx.fill();
   ctx.fillStyle='#f0d880'; ctx.fillText(label, sx+tw/2, sy-th/4-12);
 
-  // Capacity badge
-  ctx.font='bold 8px Inter,sans-serif';
   const capTxt=`${seated}/${capacity}`;
   const ctw=ctx.measureText(capTxt).width+8;
-  ctx.fillStyle=seated>=capacity?'rgba(160,30,30,0.9)':'rgba(15,10,5,0.75)';
-  roundRect(ctx, sx+tw/2-ctw/2, sy+th/4+TH+1, ctw, 11, 2);
-  ctx.fill();
-  ctx.fillStyle='#f0d080';ctx.textAlign='center';
-  ctx.fillText(capTxt, sx+tw/2, sy+th/4+TH+9);
+  ctx.fillStyle=seated>=capacity?'rgba(212,64,122,0.9)':'rgba(15,10,5,0.75)';
+  roundRect(ctx, sx+tw/2-ctw/2, sy+th/4+TH+1, ctw, 11, 2); ctx.fill();
+  ctx.fillStyle='#f0d080'; ctx.fillText(capTxt, sx+tw/2, sy+th/4+TH+9);
 }
 
 function drawFlowerCenter(ctx, cx, cy) {
-  // Small pixel flower arrangement
-  const petals=[['#d4407a',0],['#e8702a',1],['#d4407a',2],['#c070c0',3]];
+  const petals=[['#d4407a',0],['#e8702a',1],['#d4407a',2],['#e8702a',3]];
   petals.forEach(([c,i])=>{
     const a=i*Math.PI/2;
     ctx.fillStyle=c;
     ctx.beginPath();ctx.ellipse(cx+Math.cos(a)*3,cy+Math.sin(a)*1.5,2.5,1.5,a,0,Math.PI*2);ctx.fill();
   });
-  ctx.fillStyle='#70c040';
-  ctx.fillRect(cx-1,cy-1,2,2);
-  // Leaves
-  ctx.fillStyle='#50a030';
-  ctx.beginPath();ctx.ellipse(cx-3,cy+1,2.5,1,0.4,0,Math.PI*2);ctx.fill();
-  ctx.beginPath();ctx.ellipse(cx+3,cy+1,2.5,1,-0.4,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#4a7c59'; ctx.fillRect(cx-1,cy-1,2,2);
 }
 
-// ── ISO CHAIR ─────────────────────────────────
-function drawIsoChair(ctx, sx, sy, dir) {
-  // dir: 0=front-left, 1=front-right, 2=back-left, 3=back-right
-  const seat = '#8a6a3a', back='#6a4a28', leg='#4a2a18';
-  const CH=8, SW=12, SH=6;
-
-  if (dir===0||dir===2) { // facing left
-    ctx.fillStyle=leg; ctx.fillRect(sx-2,sy,3,CH); ctx.fillRect(sx+SW-2,sy,3,CH);
-    ctx.fillStyle=seat; ctx.fillRect(sx-2,sy-SH/2,SW+2,SH/2);
-    if(dir===2){ctx.fillStyle=back;ctx.fillRect(sx+SW-2,sy-SH/2-CH+2,3,CH-2);}
-  } else {
-    ctx.fillStyle=leg; ctx.fillRect(sx,sy,3,CH); ctx.fillRect(sx+SW,sy,3,CH);
-    ctx.fillStyle=seat; ctx.fillRect(sx,sy-SH/2,SW+2,SH/2);
-    if(dir===3){ctx.fillStyle=back;ctx.fillRect(sx,sy-SH/2-CH+2,3,CH-2);}
-  }
-}
-
-// ── ISO ARCH ──────────────────────────────────
+// ── ARCH & ENVIRONMENT ────────────────────────
 function drawWeddingArch(ctx, sx, sy) {
   const w=70, h=90, pw=8;
-  // Pillars
-  ctx.fillStyle='#d4cfc0';
-  ctx.fillRect(sx-w/2, sy-h, pw, h);
-  ctx.fillRect(sx+w/2-pw, sy-h, pw, h);
-  // Left face of pillars (iso depth)
-  ctx.fillStyle='#b0aa98';
-  ctx.fillRect(sx-w/2+pw, sy-h, 5, h);
-  ctx.fillRect(sx+w/2+1, sy-h, 5, h);
-  // Arch (bezier)
+  ctx.fillStyle='#d4cfc0'; ctx.fillRect(sx-w/2, sy-h, pw, h); ctx.fillRect(sx+w/2-pw, sy-h, pw, h);
+  ctx.fillStyle='#b0aa98'; ctx.fillRect(sx-w/2+pw, sy-h, 5, h); ctx.fillRect(sx+w/2+1, sy-h, 5, h);
   ctx.strokeStyle='#d4cfc0';ctx.lineWidth=pw;ctx.lineCap='round';
-  ctx.beginPath();
-  ctx.moveTo(sx-w/2+pw/2, sy-h+10);
-  ctx.bezierCurveTo(sx-w/2+pw/2, sy-h-30, sx+w/2-pw/2, sy-h-30, sx+w/2-pw/2, sy-h+10);
-  ctx.stroke();
-  // Flowers on arch
+  ctx.beginPath(); ctx.moveTo(sx-w/2+pw/2, sy-h+10); ctx.bezierCurveTo(sx-w/2+pw/2, sy-h-30, sx+w/2-pw/2, sy-h-30, sx+w/2-pw/2, sy-h+10); ctx.stroke();
+  
   const flPos=[-28,-14,0,14,28];
   flPos.forEach(dx=>{
     const fy=sy-h - 20 - Math.abs(dx)*0.3;
-    ctx.fillStyle=['#d4407a','#e8702a','#f0d080','#c070c0','#d4407a'][flPos.indexOf(dx)];
+    ctx.fillStyle=['#d4407a','#e8702a','#f0d080','#e8702a','#d4407a'][flPos.indexOf(dx)];
     ctx.beginPath();ctx.arc(sx+dx,fy,5,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#50a030';
-    ctx.beginPath();ctx.ellipse(sx+dx-5,fy+3,4,2,-0.5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#4a7c59'; ctx.beginPath();ctx.ellipse(sx+dx-5,fy+3,4,2,-0.5,0,Math.PI*2);ctx.fill();
   });
-  // Curtain / drape
-  ctx.strokeStyle='rgba(240,230,200,0.25)';ctx.lineWidth=2;
-  for(let i=0;i<5;i++){
-    ctx.beginPath();
-    ctx.moveTo(sx-w/2+pw+i*4,sy-h);
-    ctx.quadraticCurveTo(sx-w/4,sy-h+20,sx-w/2+pw+i*4+15,sy-h+40);
-    ctx.stroke();
-  }
-  // Base ribbon
-  ctx.fillStyle='rgba(212,64,122,0.4)';
-  ctx.fillRect(sx-w/2-5, sy-4, w+pw+10, 4);
 }
 
-// ── HABBO-STYLE AVATAR ────────────────────────
-function drawAvatar(ctx, x, y, bodyColor, headColor, heartColor, frame, seated, name, alpha) {
+// ── AVATARS ───────────────────────────────────
+function drawAvatar(ctx, x, y, bodyColor, headColor, frame, seated, name, alpha) {
   ctx.save();
   if(alpha!==undefined)ctx.globalAlpha=alpha;
   ctx.translate(Math.round(x), Math.round(y));
@@ -640,57 +457,32 @@ function drawAvatar(ctx, x, y, bodyColor, headColor, heartColor, frame, seated, 
   const bob = (!seated && frame%2===0) ? 0 : 1;
   const BY = seated ? 2 : 0;
 
-  // Shadow on floor (isometric oval)
   ctx.globalAlpha=(alpha||1)*0.25;
-  ctx.fillStyle='#000';
-  ctx.beginPath();ctx.ellipse(0,8,7,3.5,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#000'; ctx.beginPath();ctx.ellipse(0,8,7,3.5,0,0,Math.PI*2);ctx.fill();
   ctx.globalAlpha=(alpha||1);
 
   if (seated) {
-    // Body rotated back slightly
     ctx.fillStyle=bodyColor; ctx.fillRect(-5,BY-8,10,8);
-    // Legs (folded)
     ctx.fillStyle=bodyColor; ctx.fillRect(-5,BY,10,4);
     ctx.fillStyle='#2a1808'; ctx.fillRect(-6,BY+3,4,2);ctx.fillRect(2,BY+3,4,2);
-    // Arms
     ctx.fillStyle=bodyColor; ctx.fillRect(-8,BY-7,3,5);ctx.fillRect(5,BY-7,3,5);
   } else {
-    // Legs
     ctx.fillStyle='#3a2818';
     if(frame%4<2){ctx.fillRect(-5,4+bob,4,5);ctx.fillRect(1,2+bob,4,5);}
     else{ctx.fillRect(-5,2+bob,4,5);ctx.fillRect(1,4+bob,4,5);}
-    // Body
     ctx.fillStyle=bodyColor; ctx.fillRect(-6,-8+bob,12,12);
-    // Arms
     ctx.fillStyle=bodyColor;
     if(frame%4<2){ctx.fillRect(-9,-7+bob,3,7);ctx.fillRect(6,-5+bob,3,7);}
     else{ctx.fillRect(-9,-5+bob,3,7);ctx.fillRect(6,-7+bob,3,7);}
   }
 
   const HB = seated ? BY : bob;
-  // Neck
   ctx.fillStyle=skin; ctx.fillRect(-2,-11+HB,4,3);
-  // Head
   ctx.fillStyle=headColor; ctx.fillRect(-5,-21+HB,10,10);
-  // Hair top
   ctx.fillStyle=hair; ctx.fillRect(-5,-21+HB,10,3);ctx.fillRect(-6,-20+HB,2,4);
-  // Eyes
   ctx.fillStyle='#1a0a00'; ctx.fillRect(-3,-16+HB,2,2);ctx.fillRect(1,-16+HB,2,2);
-  // Mouth
   ctx.fillStyle='#c04050'; ctx.fillRect(-1,-13+HB,3,1);
 
-  // Heart badge on chest
-  if(heartColor && heartColor!=='none'){
-    const hc=heartColor==='blue'?'#4488ff':'#ff4488';
-    const hx=2, hy=-6+HB;
-    ctx.fillStyle=hc;
-    ctx.fillRect(hx,hy,2,1); ctx.fillRect(hx+2,hy,2,1);
-    ctx.fillRect(hx-1,hy+1,6,2);
-    ctx.fillRect(hx,hy+3,4,1);
-    ctx.fillRect(hx+1,hy+4,2,1);
-  }
-
-  // Name
   if (name) {
     ctx.font='bold 8px Inter,sans-serif'; ctx.textAlign='center';
     const tw=ctx.measureText(name).width+8;
@@ -701,47 +493,37 @@ function drawAvatar(ctx, x, y, bodyColor, headColor, heartColor, frame, seated, 
   ctx.restore();
 }
 
-// Bride avatar
 function drawBride(ctx, x, y, frame, seated, name, alpha) {
+  // Similar logic as Avatar but custom Bride dress
   ctx.save();if(alpha!==undefined)ctx.globalAlpha=alpha;
   ctx.translate(Math.round(x),Math.round(y));
   const skin='#f5d09a',dress='#f8f4ff',dressSh='#d8d0f0',hair='#2a1808';
   const bob=(!seated&&frame%2===0)?0:1;
   const BY=seated?2:0;
 
-  ctx.globalAlpha=(alpha||1)*0.25;
-  ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(0,8,8,4,0,0,Math.PI*2);ctx.fill();
-  ctx.globalAlpha=(alpha||1);
+  ctx.globalAlpha=(alpha||1)*0.25; ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(0,8,8,4,0,0,Math.PI*2);ctx.fill(); ctx.globalAlpha=(alpha||1);
 
   if(seated){
     ctx.fillStyle=dressSh;ctx.fillRect(-7,BY-8,14,10);
     ctx.fillStyle=dress;ctx.fillRect(-6,BY-7,12,8);
     ctx.fillStyle=skin;ctx.fillRect(-9,BY-7,3,5);ctx.fillRect(6,BY-7,3,5);
-    ctx.fillStyle='#e05080';ctx.beginPath();ctx.arc(-7,BY-4,4,0,Math.PI*2);ctx.fill();
   } else {
     ctx.fillStyle=dressSh;ctx.fillRect(-8,2+bob,16,6);
     ctx.fillStyle=dress;ctx.fillRect(-6,-8+bob,12,10);
     ctx.fillStyle=dress;ctx.fillRect(-8,1+bob,16,5);
     ctx.fillStyle=skin;ctx.fillRect(-9,-7+bob,3,6);ctx.fillRect(6,-7+bob,3,6);
-    ctx.fillStyle='#e05080';ctx.beginPath();ctx.arc(-7,-3+bob,4,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#60c840';ctx.fillRect(-9,-2+bob,2,4);
   }
   const HB=seated?BY:bob;
   ctx.fillStyle=skin;ctx.fillRect(-4,-21+HB,8,10);
   ctx.fillStyle=hair;ctx.fillRect(-4,-21+HB,8,3);ctx.fillRect(-5,-20+HB,2,5);ctx.fillRect(3,-20+HB,2,3);
-  // Veil
   ctx.fillStyle='rgba(255,255,255,0.85)';ctx.fillRect(-5,-22+HB,9,2);ctx.fillRect(4,-21+HB,2,8);
-  ctx.fillStyle='rgba(220,210,240,0.6)';ctx.fillRect(-6,-20+HB,2,9);
-  // Tiara
   ctx.fillStyle='#e8c830';ctx.fillRect(-3,-23+HB,1,2);ctx.fillRect(-1,-24+HB,2,3);ctx.fillRect(2,-23+HB,1,2);
   ctx.fillStyle='#1a0a00';ctx.fillRect(-2,-16+HB,2,2);ctx.fillRect(0,-16+HB,2,2);
-  ctx.fillStyle='#c03060';ctx.fillRect(-1,-13+HB,3,1);
 
   if(name){ctx.font='bold 8px Inter,sans-serif';ctx.textAlign='center';const tw2=ctx.measureText(name).width+8;ctx.fillStyle='rgba(15,10,5,0.85)';roundRect(ctx,-tw2/2,-34+HB,tw2,11,3);ctx.fill();ctx.fillStyle='#ffccee';ctx.fillText(name,0,-26+HB);}
   ctx.restore();
 }
 
-// Groom avatar
 function drawGroom(ctx, x, y, frame, seated, name, alpha) {
   ctx.save();if(alpha!==undefined)ctx.globalAlpha=alpha;
   ctx.translate(Math.round(x),Math.round(y));
@@ -749,190 +531,92 @@ function drawGroom(ctx, x, y, frame, seated, name, alpha) {
   const bob=(!seated&&frame%2===0)?0:1;
   const BY=seated?2:0;
 
-  ctx.globalAlpha=(alpha||1)*0.25;
-  ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(0,8,7,3.5,0,0,Math.PI*2);ctx.fill();
-  ctx.globalAlpha=(alpha||1);
+  ctx.globalAlpha=(alpha||1)*0.25; ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(0,8,7,3.5,0,0,Math.PI*2);ctx.fill(); ctx.globalAlpha=(alpha||1);
 
   if(seated){
     ctx.fillStyle=suit;ctx.fillRect(-6,BY-8,12,10);
     ctx.fillStyle=shirt;ctx.fillRect(-2,BY-8,4,6);
-    ctx.fillStyle='#880020';ctx.fillRect(-2,BY-8,4,1);
     ctx.fillStyle=suit;ctx.fillRect(-9,BY-7,3,6);ctx.fillRect(6,BY-7,3,6);
     ctx.fillStyle=suit;ctx.fillRect(-5,BY,10,4);
-    ctx.fillStyle='#0a0a12';ctx.fillRect(-6,BY+3,4,2);ctx.fillRect(2,BY+3,4,2);
   } else {
     ctx.fillStyle='#0a0a12';
     if(frame%4<2){ctx.fillRect(-5,4+bob,4,5);ctx.fillRect(1,2+bob,4,5);}
     else{ctx.fillRect(-5,2+bob,4,5);ctx.fillRect(1,4+bob,4,5);}
-    ctx.fillStyle='#0a0a12';ctx.fillRect(-6,4+bob,4,2);ctx.fillRect(2,4+bob,4,2);
     ctx.fillStyle=suit;ctx.fillRect(-6,-8+bob,12,12);
     ctx.fillStyle=shirt;ctx.fillRect(-2,-8+bob,4,7);
-    ctx.fillStyle='#880020';ctx.fillRect(-2,-8+bob,4,1);ctx.fillRect(-1,-9+bob,2,1);
-    ctx.fillStyle=suit;ctx.fillRect(-5,-8+bob,2,4);ctx.fillRect(3,-8+bob,2,4);
     ctx.fillStyle=suit;ctx.fillRect(-9,-7+bob,3,7);ctx.fillRect(6,-7+bob,3,7);
-    ctx.fillStyle=skin;ctx.fillRect(-9,-1+bob,3,2);ctx.fillRect(6,-1+bob,3,2);
   }
   const HB=seated?BY:bob;
   ctx.fillStyle=skin;ctx.fillRect(-4,-21+HB,8,10);
   ctx.fillStyle=hair;ctx.fillRect(-4,-21+HB,8,3);ctx.fillRect(-5,-20+HB,2,5);
-  ctx.fillStyle='#0a0a12';ctx.fillRect(-4,-22+HB,8,2);ctx.fillRect(-3,-25+HB,6,4);ctx.fillRect(-2,-25+HB,4,2);
   ctx.fillStyle='#1a0a00';ctx.fillRect(-2,-16+HB,2,2);ctx.fillRect(0,-16+HB,2,2);
-  ctx.fillStyle='#703020';ctx.fillRect(-1,-13+HB,3,1);
 
   if(name){ctx.font='bold 8px Inter,sans-serif';ctx.textAlign='center';const tw2=ctx.measureText(name).width+8;ctx.fillStyle='rgba(15,10,5,0.85)';roundRect(ctx,-tw2/2,-34+HB,tw2,11,3);ctx.fill();ctx.fillStyle='#ccddff';ctx.fillText(name,0,-26+HB);}
   ctx.restore();
 }
 
-// ── DOG ───────────────────────────────────────
-function drawDog(ctx, x, y, frame) {
+function drawDog(ctx, x, y, frame, name) {
   ctx.save(); ctx.translate(Math.round(x),Math.round(y));
   const bodyColor='#c8a870', darkC='#8a6840';
   const run=Math.floor(frame/3)%4;
 
-  // shadow
   ctx.globalAlpha=0.2;ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(0,4,6,2.5,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
 
-  // tail
+  ctx.fillStyle=bodyColor; const tailAngle=Math.sin(frame*0.15)*0.8;
+  ctx.save();ctx.translate(-10,0);ctx.rotate(tailAngle); ctx.fillRect(-2,-5,3,6);ctx.restore();
+  ctx.fillStyle=bodyColor;ctx.fillRect(-10,-5,16,7); ctx.fillStyle=darkC;ctx.fillRect(-2,-6,5,2);
+
   ctx.fillStyle=bodyColor;
-  const tailAngle=Math.sin(frame*0.15)*0.8;
-  ctx.save();ctx.translate(-10,0);ctx.rotate(tailAngle);
-  ctx.fillRect(-2,-5,3,6);ctx.restore();
+  if(run<2){ ctx.fillRect(-8,2,3,5);ctx.fillRect(3,2,3,5); ctx.fillRect(-4,0,3,3);ctx.fillRect(1,4,3,5); } 
+  else { ctx.fillRect(-8,4,3,5);ctx.fillRect(3,0,3,3); ctx.fillRect(-4,2,3,5);ctx.fillRect(1,2,3,5); }
 
-  // body
-  ctx.fillStyle=bodyColor;ctx.fillRect(-10,-5,16,7);
-  ctx.fillStyle=darkC;ctx.fillRect(-2,-6,5,2);
-
-  // legs (running animation)
-  ctx.fillStyle=bodyColor;
-  if(run<2){
-    ctx.fillRect(-8,2,3,5);ctx.fillRect(3,2,3,5);
-    ctx.fillRect(-4,0,3,3);ctx.fillRect(1,4,3,5);
-  } else {
-    ctx.fillRect(-8,4,3,5);ctx.fillRect(3,0,3,3);
-    ctx.fillRect(-4,2,3,5);ctx.fillRect(1,2,3,5);
-  }
-
-  // head
-  ctx.fillStyle=bodyColor;ctx.fillRect(4,-8,10,8);
-  ctx.fillStyle=darkC;ctx.fillRect(4,-8,10,3);
-  // snout
-  ctx.fillStyle='#e8c090';ctx.fillRect(12,-5,4,4);
-  ctx.fillStyle='#1a0a00';ctx.fillRect(14,-3,2,2);
-  // ear
-  ctx.fillStyle=darkC;ctx.fillRect(4,-10,4,4);
-  // eye
-  ctx.fillStyle='#1a0a00';ctx.fillRect(8,-6,2,2);
-  // tongue
+  ctx.fillStyle=bodyColor;ctx.fillRect(4,-8,10,8); ctx.fillStyle=darkC;ctx.fillRect(4,-8,10,3);
+  ctx.fillStyle='#e8c090';ctx.fillRect(12,-5,4,4); ctx.fillStyle='#1a0a00';ctx.fillRect(14,-3,2,2);
+  ctx.fillStyle=darkC;ctx.fillRect(4,-10,4,4); ctx.fillStyle='#1a0a00';ctx.fillRect(8,-6,2,2);
   if(run%2===0){ctx.fillStyle='#e06080';ctx.fillRect(13,-2,3,3);}
 
+  if(name) {
+    ctx.font='bold 7px Inter,sans-serif'; ctx.textAlign='center';
+    const tw=ctx.measureText(name).width+6;
+    ctx.fillStyle='rgba(15,10,5,0.7)';
+    roundRect(ctx, -tw/2, -22, tw, 10, 2); ctx.fill();
+    ctx.fillStyle='#f0d880'; ctx.fillText(name, 0, -14);
+  }
   ctx.restore();
 }
 
-// ── ISO FLOOR ─────────────────────────────────
 function drawIsoFloor(ctx, originX, originY, gridW, gridH) {
-  const colors = [
-    ['#e0d8c8','#ccc4b4'],  // light greige
-    ['#d4ccbc','#c0b8a8'],  // slightly darker
-  ];
+  const colors = [['#c8bfb0','#b8af9e'], ['#beb4a4','#b0a595']]; // Greige palette
   for (let gy=0; gy<gridH; gy++) {
     for (let gx=0; gx<gridW; gx++) {
       const {x,y} = isoToScreen(gx, gy);
       const even = (gx+gy)%2;
       const [top, edge] = colors[even];
       const sx = originX + x, sy = originY + y;
-      // Top face
-      ctx.beginPath();
-      ctx.moveTo(sx, sy);
-      ctx.lineTo(sx+TILE_W/2, sy-TILE_H/2);
-      ctx.lineTo(sx+TILE_W, sy);
-      ctx.lineTo(sx+TILE_W/2, sy+TILE_H/2);
-      ctx.closePath();
-      ctx.fillStyle=top; ctx.fill();
-      ctx.strokeStyle='rgba(0,0,0,0.07)'; ctx.lineWidth=0.5; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx+TILE_W/2, sy-TILE_H/2); ctx.lineTo(sx+TILE_W, sy); ctx.lineTo(sx+TILE_W/2, sy+TILE_H/2); ctx.closePath();
+      ctx.fillStyle=top; ctx.fill(); ctx.strokeStyle='rgba(0,0,0,0.05)'; ctx.lineWidth=0.5; ctx.stroke();
     }
-  }
-
-  // Walls (left and top edges)
-  const wallH=40;
-  const wallTop='#b8b0a0', wallLeft='#a0988a', wallRight='#8a8278';
-
-  // Left wall (gy=0 row, left side)
-  for(let gx=0;gx<gridW;gx++){
-    const {x,y}=isoToScreen(gx,0);
-    const sx=originX+x, sy=originY+y;
-    ctx.beginPath();
-    ctx.moveTo(sx,sy); ctx.lineTo(sx,sy-wallH);
-    ctx.lineTo(sx+TILE_W/2,sy-TILE_H/2-wallH);
-    ctx.lineTo(sx+TILE_W/2,sy-TILE_H/2);
-    ctx.closePath();
-    ctx.fillStyle=wallLeft;ctx.fill();
-    ctx.strokeStyle='rgba(0,0,0,0.1)';ctx.lineWidth=0.5;ctx.stroke();
-  }
-  // Top wall (gx=0 column, right side)
-  for(let gy=0;gy<gridH;gy++){
-    const {x,y}=isoToScreen(0,gy);
-    const sx=originX+x, sy=originY+y;
-    ctx.beginPath();
-    ctx.moveTo(sx+TILE_W/2,sy-TILE_H/2);
-    ctx.lineTo(sx+TILE_W/2,sy-TILE_H/2-wallH);
-    ctx.lineTo(sx+TILE_W,sy-wallH);
-    ctx.lineTo(sx+TILE_W,sy);
-    ctx.closePath();
-    ctx.fillStyle=wallRight;ctx.fill();
-    ctx.strokeStyle='rgba(0,0,0,0.1)';ctx.lineWidth=0.5;ctx.stroke();
-  }
-
-  // Baseboard / crown molding line
-  ctx.strokeStyle='rgba(140,130,120,0.5)'; ctx.lineWidth=1;
-}
-
-// Wainscoting / wall decoration
-function drawWallDecor(ctx, originX, originY, gridW, gridH) {
-  // Hanging lights along top-left wall
-  for(let gx=0;gx<gridW;gx+=2){
-    const {x,y}=isoToScreen(gx+0.5,0);
-    const sx=originX+x, sy=originY+y-40;
-    ctx.strokeStyle='rgba(180,160,120,0.5)'; ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(sx+TILE_W/2,sy-10);ctx.lineTo(sx+TILE_W/2,sy+5);ctx.stroke();
-    ctx.fillStyle='rgba(240,210,100,0.8)';
-    ctx.beginPath();ctx.arc(sx+TILE_W/2,sy+5,3,0,Math.PI*2);ctx.fill();
-    // glow
-    const grd=ctx.createRadialGradient(sx+TILE_W/2,sy+5,0,sx+TILE_W/2,sy+5,12);
-    grd.addColorStop(0,'rgba(240,210,100,0.2)');grd.addColorStop(1,'rgba(240,210,100,0)');
-    ctx.fillStyle=grd;ctx.beginPath();ctx.arc(sx+TILE_W/2,sy+5,12,0,Math.PI*2);ctx.fill();
   }
 }
 
 function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
-  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
-  ctx.closePath();
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
 }
 
 // ═══════════════════════════════════════════════
-//  GROUPS & STATE
+//  STATE & DATA
 // ═══════════════════════════════════════════════
 const GROUPS={
-  novio: {label:'Novio',       color:'#3a7bd5',heart:'blue'},
-  novia: {label:'Novia',       color:'#d5547a',heart:'pink'},
-  fnovio:{label:'Fam. Novio',  color:'#1a4a9a',heart:'blue'},
-  fnovia:{label:'Fam. Novia',  color:'#9a2050',heart:'pink'},
-  anovio:{label:'Ami. Novio',  color:'#2870a0',heart:'blue'},
-  anovia:{label:'Ami. Novia',  color:'#b83060',heart:'pink'},
-  acomun:{label:'Ami. Común',  color:'#b87020',heart:'none'},
+  novio: {label:'Ramiro',    color:'#3a7bd5'}, novia: {label:'Clari',     color:'#d5547a'},
+  fnovio:{label:'Fam. Ram',  color:'#1a4a9a'}, fnovia:{label:'Fam. Cla',  color:'#9a2050'},
+  anovio:{label:'Amigos Ram',color:'#2870a0'}, anovia:{label:'Amigos Cla',color:'#b83060'},
+  acomun:{label:'Amigos Com',color:'#e8702a'},
 };
-// Lighter skin tone per group for head
-const HEAD_COLOR={
-  novio:'#a0b8e0',novia:'#e0a0c0',fnovio:'#8090c0',fnovia:'#c08090',
-  anovio:'#90b0d0',anovia:'#d090b0',acomun:'#c0a878',
-};
+const HEAD_COLOR={ fnovio:'#8090c0',fnovia:'#c08090',anovio:'#90b0d0',anovia:'#d090b0',acomun:'#c0a878'};
 
-const STORAGE='weddingboy_iso_v1';
-const GRID_W=14, GRID_H=10;
+const GRID_W=14, GRID_H=12;
 let guests=[],tables=[],sprites=[];
 let brideSprite=null, groomSprite=null, dogSprite=null;
 let selectedGuest=null, editingTableId=null;
@@ -945,11 +629,9 @@ let originX=0, originY=0;
 
 function initCanvas(){
   const wrap=document.getElementById('canvasWrap');
-  canvas.width=wrap.clientWidth;
-  canvas.height=Math.max(wrap.clientHeight,420);
-  // Center the iso grid
+  canvas.width=wrap.clientWidth; canvas.height=Math.max(wrap.clientHeight,420);
   const totalW=GRID_W*TILE_W, totalH=GRID_H*TILE_H;
-  originX=canvas.width/2 - totalW/2 + 60;
+  originX=canvas.width/2 - totalW/2 + 30; // Centered properly
   originY=80;
   layoutTables();
   if(!brideSprite) initMainSprites();
@@ -962,26 +644,21 @@ function isoOriginPos(gx,gy){
 
 function layoutTables(){
   const n=tables.length; if(!n)return;
-  // Distribute tables in the isometric grid, avoiding edges
-  const cols=Math.ceil(Math.sqrt(n*1.4));
+  const cols=Math.ceil(Math.sqrt(n*1.2));
   const rows=Math.ceil(n/cols);
-  const marginGx=2, marginGy=2;
-  const spacingGx=Math.max(2.5,Math.floor((GRID_W-marginGx*2)/cols));
-  const spacingGy=Math.max(2.5,Math.floor((GRID_H-marginGy*2)/rows));
+  const spacingGx=Math.max(3,Math.floor((GRID_W-2)/cols));
+  const spacingGy=Math.max(3,Math.floor((GRID_H-2)/rows));
   tables.forEach((t,i)=>{
     const col=i%cols, row=Math.floor(i/cols);
-    t.gx=marginGx+col*spacingGx+1;
-    t.gy=marginGy+row*spacingGy+1;
+    t.gx=2+col*spacingGx; t.gy=2+row*spacingGy;
     t.tw=TILE_W*2.2; t.th=TILE_H*2;
   });
 }
 
 function initMainSprites(){
-  brideSprite={x:0,y:0,gx:GRID_W-2.5,gy:GRID_H-1.8,frame:0,wanderTimer:80,name:'Novia',targetGx:GRID_W-2.5,targetGy:GRID_H-1.8};
-  groomSprite={x:0,y:0,gx:GRID_W-1.5,gy:GRID_H-2.5,frame:0,wanderTimer:100,name:'Novio',targetGx:GRID_W-1.5,targetGy:GRID_H-2.5};
-  dogSprite={gx:3,gy:GRID_H-2,frame:0,wanderTimer:60,targetGx:3,targetGy:GRID_H-2};
-  updateSpriteScreenPos(brideSprite);
-  updateSpriteScreenPos(groomSprite);
+  brideSprite={x:0,y:0,gx:GRID_W-2.5,gy:GRID_H-1.8,frame:0,wanderTimer:80,name:'Clari',targetGx:GRID_W-2.5,targetGy:GRID_H-1.8};
+  groomSprite={x:0,y:0,gx:GRID_W-1.5,gy:GRID_H-2.5,frame:0,wanderTimer:100,name:'Ramiro',targetGx:GRID_W-1.5,targetGy:GRID_H-2.5};
+  dogSprite={gx:3,gy:GRID_H-2,frame:0,wanderTimer:60,name:'Poker',targetGx:3,targetGy:GRID_H-2};
 }
 
 function updateSpriteScreenPos(sp){
@@ -990,39 +667,37 @@ function updateSpriteScreenPos(sp){
 }
 
 function wanderMainSprite(sp, minGx, maxGx, minGy, maxGy){
-  sp.frame++;
-  sp.wanderTimer--;
+  sp.frame++; sp.wanderTimer--;
   if(sp.wanderTimer<=0){
-    sp.targetGx=minGx+Math.random()*(maxGx-minGx);
-    sp.targetGy=minGy+Math.random()*(maxGy-minGy);
+    sp.targetGx=minGx+Math.random()*(maxGx-minGx); sp.targetGy=minGy+Math.random()*(maxGy-minGy);
     sp.wanderTimer=80+Math.random()*120;
   }
-  const speed=0.02;
-  sp.gx+=(sp.targetGx-sp.gx)*speed;
-  sp.gy+=(sp.targetGy-sp.gy)*speed;
+  const speed=0.02; sp.gx+=(sp.targetGx-sp.gx)*speed; sp.gy+=(sp.targetGy-sp.gy)*speed;
   updateSpriteScreenPos(sp);
 }
 
+// ── NEW SNAP ALGORITHM ──
 function getSeatIsoPos(table, guestId){
   const seated=guests.filter(g=>g.tableId===table.id);
   const idx=seated.findIndex(g=>g.id===guestId);
-  const n=Math.max(seated.length,1);
-  const angle=(idx/n)*Math.PI*2 - Math.PI/2;
-  const r=1.2;
+  const cap=table.capacity;
+  
+  // Distribuir en un rectángulo isométrico alrededor del centro de la mesa
+  // Esto previene que se encimen en círculos raros.
+  const angle = (idx / Math.max(cap,1)) * Math.PI * 2 - Math.PI/4;
+  const rx = 1.3, ry = 1.3; 
   return {
-    gx: table.gx + Math.cos(angle)*r,
-    gy: table.gy + Math.sin(angle)*r*0.8,
+    gx: table.gx + Math.cos(angle)*rx,
+    gy: table.gy + Math.sin(angle)*ry,
   };
 }
 
-// ── GUEST SPRITE CLASS ────────────────────────
 function Sprite(g){
   this.guestId=g.id; this.color=g.color; this.headColor=HEAD_COLOR[g.group]||'#c0b090';
-  this.heartColor=GROUPS[g.group].heart; this.name=g.name;
-  this.gx=1+Math.random()*(GRID_W-3); this.gy=1+Math.random()*(GRID_H-3);
-  this.frame=Math.floor(Math.random()*8);
-  this.seated=false; this.speed=0.025+Math.random()*0.01; this.wanderTimer=0;
-  this.targetGx=this.gx; this.targetGy=this.gy;
+  this.name=g.name; this.gx=1+Math.random()*(GRID_W-3); this.gy=1+Math.random()*(GRID_H-3);
+  this.frame=Math.floor(Math.random()*8); this.seated=false; 
+  this.speed=0.06; // Faster movement
+  this.wanderTimer=0; this.targetGx=this.gx; this.targetGy=this.gy;
   updateSpriteScreenPos(this);
 }
 Sprite.prototype.update=function(){
@@ -1033,97 +708,77 @@ Sprite.prototype.update=function(){
     if(t){const sp=getSeatIsoPos(t,g.id);this.targetGx=sp.gx;this.targetGy=sp.gy;}
     const dx=this.targetGx-this.gx, dy=this.targetGy-this.gy;
     const d=Math.sqrt(dx*dx+dy*dy);
-    if(d>0.08){this.gx+=dx*this.speed*2.5;this.gy+=dy*this.speed*2.5;this.seated=false;}
+    if(d>0.08){this.gx+=dx*this.speed;this.gy+=dy*this.speed;this.seated=false;}
     else{this.gx=this.targetGx;this.gy=this.targetGy;this.seated=true;}
   } else {
     this.seated=false; this.wanderTimer--;
     if(this.wanderTimer<=0){
-      this.targetGx=1+Math.random()*(GRID_W-3);
-      this.targetGy=1+Math.random()*(GRID_H-3);
+      this.targetGx=1+Math.random()*(GRID_W-3); this.targetGy=1+Math.random()*(GRID_H-3);
       this.wanderTimer=80+Math.random()*100;
     }
     const dx=this.targetGx-this.gx, dy=this.targetGy-this.gy;
     const d=Math.sqrt(dx*dx+dy*dy);
-    if(d>0.05){this.gx+=dx*this.speed;this.gy+=dy*this.speed;}
+    if(d>0.05){this.gx+=dx*(this.speed*0.3);this.gy+=dy*(this.speed*0.3);}
   }
   updateSpriteScreenPos(this);
 };
-Sprite.prototype.getIsoY=function(){
-  return this.gy+this.gx*0.1; // iso sort key
-};
 
 // ═══════════════════════════════════════════════
-//  GAME LOOP
+//  GAME LOOP & Z-SORT RENDERING
 // ═══════════════════════════════════════════════
 function gameLoop(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  // Gradient background
   const bg=ctx.createLinearGradient(0,0,0,canvas.height);
   bg.addColorStop(0,'#2a2820');bg.addColorStop(1,'#1a1612');
   ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  // Floor + walls
   drawIsoFloor(ctx,originX,originY,GRID_W,GRID_H);
-  drawWallDecor(ctx,originX,originY,GRID_W,GRID_H);
-
-  // Wedding arch (back-left area)
+  
   const archPos=isoOriginPos(1,1);
   drawWeddingArch(ctx, archPos.sx, archPos.sy-20);
 
-  // Update wanderers
   if(brideSprite) wanderMainSprite(brideSprite,GRID_W*0.6,GRID_W-1.5,GRID_H*0.5,GRID_H-1);
   if(groomSprite) wanderMainSprite(groomSprite,GRID_W*0.55,GRID_W-1,GRID_H*0.45,GRID_H-1);
   if(dogSprite)   wanderMainSprite(dogSprite,1,GRID_W-2,1,GRID_H-1);
 
-  // Build render list sorted by iso Y (painter's algorithm)
   const renderList=[];
 
-  // Tables
+  // Z-SORT FIX: Clave principal = gx + gy
+  // A la mesa le sumamos un pelín (0.1) para que dibuje a las sillas TRASERAS antes, y a las DELANTERAS después.
   tables.forEach(t=>{
     const {x,y}=isoToScreen(t.gx,t.gy);
     const sx=originX+x, sy=originY+y;
     const seated=guests.filter(g=>g.tableId===t.id).length;
     renderList.push({
-      sortY: t.gy+t.gx*0.1+0.5,
+      sortY: t.gx + t.gy + 0.1, 
       fn:()=>drawIsoTable(ctx,sx-t.tw/2+TILE_W/2,sy,t.tw,t.th,seated,t.capacity,t.name,t.hovered)
     });
   });
 
-  // Guest sprites
   sprites.forEach(s=>{
     s.update();
     const g=guests.find(x=>x.id===s.guestId); if(!g)return;
     const filtered=activeFilter!=='all'&&g.group!==activeFilter;
     const isSel=selectedGuest&&selectedGuest.id===s.guestId;
-    const alpha=filtered?0.12:1;
     renderList.push({
-      sortY: s.getIsoY(),
+      sortY: s.gx + s.gy,
       fn:()=>{
         if(isSel){ctx.save();ctx.shadowColor='#f0d080';ctx.shadowBlur=16;}
-        drawAvatar(ctx,s.x,s.y,s.color,s.headColor,s.heartColor,s.frame,s.seated,filtered?null:s.name,alpha);
+        drawAvatar(ctx,s.x,s.y,s.color,s.headColor,s.frame,s.seated,filtered?null:s.name,filtered?0.15:1);
         if(isSel)ctx.restore();
       }
     });
   });
 
-  // Bride + Groom
-  if(brideSprite){
-    const bdim=activeFilter!=='all'&&!['novia','fnovia','anovia'].includes(activeFilter);
-    renderList.push({sortY:brideSprite.gy+brideSprite.gx*0.1,fn:()=>drawBride(ctx,brideSprite.x,brideSprite.y,brideSprite.frame,false,brideSprite.name,bdim?0.12:1)});
-  }
-  if(groomSprite){
-    const gdim=activeFilter!=='all'&&!['novio','fnovio','anovio'].includes(activeFilter);
-    renderList.push({sortY:groomSprite.gy+groomSprite.gx*0.1,fn:()=>drawGroom(ctx,groomSprite.x,groomSprite.y,groomSprite.frame,false,groomSprite.name,gdim?0.12:1)});
-  }
-  // Dog
+  if(brideSprite) renderList.push({sortY:brideSprite.gx+brideSprite.gy,fn:()=>drawBride(ctx,brideSprite.x,brideSprite.y,brideSprite.frame,false,brideSprite.name,1)});
+  if(groomSprite) renderList.push({sortY:groomSprite.gx+groomSprite.gy,fn:()=>drawGroom(ctx,groomSprite.x,groomSprite.y,groomSprite.frame,false,groomSprite.name,1)});
   if(dogSprite){
     const {x,y}=isoToScreen(dogSprite.gx,dogSprite.gy);
-    const dx=originX+x+TILE_W/2, dy=originY+y+TILE_H/2;
-    renderList.push({sortY:dogSprite.gy+dogSprite.gx*0.1,fn:()=>drawDog(ctx,dx,dy,dogSprite.frame)});
+    renderList.push({sortY:dogSprite.gx+dogSprite.gy,fn:()=>drawDog(ctx,originX+x+TILE_W/2,originY+y+TILE_H/2,dogSprite.frame, dogSprite.name)});
   }
 
-  // Sort and render
+  // Ordenamiento Mágico de Profundidad
   renderList.sort((a,b)=>a.sortY-b.sortY);
   renderList.forEach(r=>r.fn());
 
@@ -1131,41 +786,26 @@ function gameLoop(){
 }
 
 // ═══════════════════════════════════════════════
-//  CANVAS INTERACTION
+//  INTERACTION & LOGIC
 // ═══════════════════════════════════════════════
 function getPos(e){
-  const r=canvas.getBoundingClientRect();
-  return{x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)};
+  const r=canvas.getBoundingClientRect(); return{x:(e.clientX-r.left)*(canvas.width/r.width),y:(e.clientY-r.top)*(canvas.height/r.height)};
 }
-
 function hitTable(mx,my){
   return tables.find(t=>{
-    const {x,y}=isoToScreen(t.gx,t.gy);
-    const sx=originX+x+TILE_W/2, sy=originY+y;
-    const dx=mx-sx, dy=my-sy;
-    return Math.abs(dx)<t.tw/2+8&&Math.abs(dy)<t.th/2+20;
+    const {x,y}=isoToScreen(t.gx,t.gy); const sx=originX+x+TILE_W/2, sy=originY+y;
+    return Math.abs(mx-sx)<t.tw/2+8 && Math.abs(my-sy)<t.th/2+20;
   });
 }
-
 function hitSprite(mx,my){
-  const all=[...sprites];
-  if(brideSprite)all.push({guestId:BRIDE_ID,x:brideSprite.x,y:brideSprite.y});
-  if(groomSprite)all.push({guestId:GROOM_ID,x:groomSprite.x,y:groomSprite.y});
-  return all.find(s=>{
-    const dx=mx-s.x, dy=my-s.y;
-    return Math.sqrt(dx*dx+dy*dy)<16;
-  });
+  return sprites.find(s=> Math.sqrt(Math.pow(mx-s.x,2)+Math.pow(my-s.y,2))<16 );
 }
-
-const BRIDE_ID=-1, GROOM_ID=-2;
 
 canvas.addEventListener('mousemove',e=>{
   const {x,y}=getPos(e);
   tables.forEach(t=>{
-    const {x:tx,y:ty}=isoToScreen(t.gx,t.gy);
-    const sx=originX+tx+TILE_W/2, sy=originY+ty;
-    const dx=x-sx, dy=y-sy;
-    t.hovered=Math.abs(dx)<t.tw/2+6&&Math.abs(dy)<t.th/2+18;
+    const {x:tx,y:ty}=isoToScreen(t.gx,t.gy); const sx=originX+tx+TILE_W/2, sy=originY+ty;
+    t.hovered=Math.abs(x-sx)<t.tw/2+6&&Math.abs(y-sy)<t.th/2+18;
   });
   canvas.style.cursor=hitTable(x,y)||hitSprite(x,y)?'pointer':'default';
 });
@@ -1177,8 +817,8 @@ canvas.addEventListener('click',e=>{
     const g=guests.find(x=>x.id===hs.guestId);
     if(g){
       if(selectedGuest&&selectedGuest.id===g.id){selectedGuest=null;setStatus('Selección cancelada');}
-      else{selectedGuest=g;setStatus(`${g.name} [${GROUPS[g.group].label}] — hacé click en una mesa!`);}
-      renderList();return;
+      else{selectedGuest=g;setStatus(`${g.name} [${GROUPS[g.group].label}] — ¡hacé click en una mesa!`);}
+      renderListSidebar();return;
     }
   }
   const ht=hitTable(x,y);
@@ -1186,314 +826,103 @@ canvas.addEventListener('click',e=>{
     if(selectedGuest){
       const s=guests.filter(g=>g.tableId===ht.id).length;
       if(s>=ht.capacity){setStatus(`¡${ht.name} está llena! (${s}/${ht.capacity})`);return;}
-      selectedGuest.tableId=ht.id;
-      setStatus(`${selectedGuest.name} → ${ht.name} ✓`);
-      selectedGuest=null;renderList();save();
+      selectedGuest.tableId=ht.id; setStatus(`${selectedGuest.name} → ${ht.name} ✓`);
+      selectedGuest=null;renderListSidebar();
     } else {
-      if(ht._lc&&Date.now()-ht._lc<400)openModal(ht.id);
-      ht._lc=Date.now();
+      if(ht._lc&&Date.now()-ht._lc<400)openModal(ht.id); ht._lc=Date.now();
     }
     return;
   }
-  if(selectedGuest){selectedGuest=null;setStatus('Selección cancelada');renderList();}
+  if(selectedGuest){selectedGuest=null;setStatus('Selección cancelada');renderListSidebar();}
 });
 
-// ═══════════════════════════════════════════════
-//  CHIP AVATAR (sidebar mini)
-// ═══════════════════════════════════════════════
 function makeChipCanvas(g){
-  const c=document.createElement('canvas');
-  c.width=18;c.height=20;c.style.imageRendering='pixelated';
+  const c=document.createElement('canvas'); c.width=18;c.height=20;c.style.imageRendering='pixelated';
   const cx=c.getContext('2d');
-  // Mini avatar
-  cx.fillStyle=g.color; cx.fillRect(2,10,14,8);
-  cx.fillStyle=HEAD_COLOR[g.group]||'#c0b090'; cx.fillRect(4,2,10,8);
-  cx.fillStyle='#2a1808'; cx.fillRect(4,2,10,3);cx.fillRect(3,3,2,4);
-  cx.fillStyle='#1a0a00'; cx.fillRect(6,6,2,2);cx.fillRect(10,6,2,2);
-  // heart
-  if(GROUPS[g.group].heart!=='none'){
-    cx.fillStyle=GROUPS[g.group].heart==='blue'?'#4488ff':'#ff4488';
-    cx.fillRect(9,12,2,1);cx.fillRect(11,12,2,1);cx.fillRect(8,13,6,2);cx.fillRect(9,15,4,1);cx.fillRect(10,16,2,1);
-  }
+  cx.fillStyle=g.color; cx.fillRect(2,10,14,8); cx.fillStyle=HEAD_COLOR[g.group]||'#c0b090'; cx.fillRect(4,2,10,8);
+  cx.fillStyle='#2a1808'; cx.fillRect(4,2,10,3);cx.fillRect(3,3,2,4); cx.fillStyle='#1a0a00'; cx.fillRect(6,6,2,2);cx.fillRect(10,6,2,2);
   return c;
 }
 
-// ═══════════════════════════════════════════════
-//  DATA & PERSISTENCE
-// ═══════════════════════════════════════════════
-function save(){
-  localStorage.setItem(STORAGE,JSON.stringify({guests,tables,nextGid,nextTid}));
-  const t=document.getElementById('saveToast');
-  t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1400);
-}
-function load(){
-  try{
-    const d=JSON.parse(localStorage.getItem(STORAGE));if(!d)return false;
-    guests=d.guests||[];tables=d.tables||[];
-    nextGid=d.nextGid||guests.length+1;nextTid=d.nextTid||tables.length+1;
-    guests.forEach(g=>{if(!g.group||!GROUPS[g.group])g.group='acomun';});
-    tables.forEach(t=>{if(!t.gx)t.gx=2;if(!t.gy)t.gy=2;if(t.hovered===undefined)t.hovered=false;});
-    return true;
-  }catch(e){return false;}
-}
 function defaults(){
   guests=[
-    {id:1,name:'Ana G.',  color:'#d5547a',group:'fnovia',tableId:null},
-    {id:2,name:'Carlos R.',color:'#1a4a9a',group:'fnovio',tableId:null},
-    {id:3,name:'Lucía M.',color:'#b83060',group:'anovia',tableId:null},
-    {id:4,name:'Pedro G.',color:'#2870a0',group:'anovio',tableId:null},
-    {id:5,name:'Sofía D.',color:'#b87020',group:'acomun',tableId:null},
+    {id:1,name:'Carlos', color:'#1a4a9a',group:'fnovio',tableId:null},
+    {id:2,name:'Ana',    color:'#9a2050',group:'fnovia',tableId:null},
+    {id:3,name:'Pedro',  color:'#2870a0',group:'anovio',tableId:null},
+    {id:4,name:'Lucía',  color:'#b83060',group:'anovia',tableId:null},
   ];
   tables=[
-    {id:1,name:'Familia',  capacity:8,gx:4,gy:3,tw:70,th:35,hovered:false},
-    {id:2,name:'Amigos',   capacity:8,gx:9,gy:3,tw:70,th:35,hovered:false},
-    {id:3,name:'Trabajo',  capacity:6,gx:6,gy:7,tw:70,th:35,hovered:false},
+    {id:1,name:'Principal',capacity:2,gx:7,gy:2,tw:50,th:30,hovered:false},
+    {id:2,name:'Familia',  capacity:8,gx:4,gy:5,tw:70,th:35,hovered:false},
+    {id:3,name:'Amigos',   capacity:8,gx:9,gy:5,tw:70,th:35,hovered:false},
   ];
-  nextGid=6;nextTid=4;
+  nextGid=5;nextTid=4;
 }
 
-// ═══════════════════════════════════════════════
-//  ACTIONS
-// ═══════════════════════════════════════════════
-function setFilter(f){
-  activeFilter=f;
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.toggle('active',t.dataset.f===f));
-  renderList();
-}
-function syncColor(){}
-
+function setFilter(f){ activeFilter=f; document.querySelectorAll('.ftab').forEach(t=>t.classList.toggle('active',t.dataset.f===f)); renderListSidebar(); }
 function addGuest(){
-  const inp=document.getElementById('guestInp');
-  const name=inp.value.trim();if(!name)return;
-  const group=document.getElementById('groupSel').value;
-  const color=GROUPS[group].color;
+  const inp=document.getElementById('guestInp'), name=inp.value.trim(); if(!name)return;
+  const group=document.getElementById('groupSel').value, color=GROUPS[group].color;
   const g={id:nextGid++,name:name.substring(0,16),color,group,tableId:null};
-  guests.push(g);sprites.push(new Sprite(g));
-  inp.value='';setStatus(`${name} llegó! ✓`);renderList();save();
+  guests.push(g); sprites.push(new Sprite(g)); inp.value=''; setStatus(`${name} agregado! ✓`); renderListSidebar();
 }
 function removeGuest(id){
-  const g=guests.find(x=>x.id===id);
-  guests=guests.filter(x=>x.id!==id);sprites=sprites.filter(s=>s.guestId!==id);
-  if(selectedGuest&&selectedGuest.id===id)selectedGuest=null;
-  setStatus(g?`${g.name} eliminado`:'Eliminado');renderList();save();
-}
-
-// Import
-function openImport(){document.getElementById('importText').value='';document.getElementById('importCount').textContent='';document.getElementById('importModal').classList.add('open');}
-function closeImport(){document.getElementById('importModal').classList.remove('open');}
-const GROUP_MAP={'novio':'novio','novia':'novia','familia novio':'fnovio','familia novia':'fnovia','amigos novio':'anovio','amigos novia':'anovia','amigos común':'acomun','amigos comun':'acomun','amigos en común':'acomun'};
-function loadFile(e){
-  const file=e.target.files[0];if(!file)return;
-  const ext=file.name.split('.').pop().toLowerCase();
-  if(ext==='xlsx'||ext==='xls'){
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      const wb=XLSX.read(ev.target.result,{type:'array'});
-      const ws=wb.Sheets[wb.SheetNames[0]];
-      const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
-      let headerRow=-1;
-      for(let i=0;i<Math.min(rows.length,8);i++){if(rows[i].some(c=>String(c).toLowerCase().includes('nombre'))){headerRow=i;break;}}
-      if(headerRow===-1){setStatus('No se encontró columna "Nombre"');closeImport();return;}
-      const headers=rows[headerRow].map(h=>String(h).toLowerCase().trim());
-      const nameIdx=headers.findIndex(h=>h.includes('nombre'));
-      const groupIdx=headers.findIndex(h=>h.includes('grupo'));
-      let added=0;
-      for(let i=headerRow+1;i<rows.length;i++){
-        const row=rows[i];const name=String(row[nameIdx]||'').trim();
-        if(!name||name==='(vacía)')continue;
-        if(guests.find(g=>g.name.toLowerCase()===name.toLowerCase()))continue;
-        let group=document.getElementById('importGroup').value;
-        if(groupIdx>=0&&row[groupIdx]){const gKey=GROUP_MAP[String(row[groupIdx]).toLowerCase().trim()];if(gKey)group=gKey;}
-        const color=GROUPS[group]?.color||'#b87020';
-        const g={id:nextGid++,name:name.substring(0,16),color,group,tableId:null};
-        guests.push(g);sprites.push(new Sprite(g));added++;
-      }
-      closeImport();setStatus(`${added} invitado${added!==1?'s':''} importados! ✓`);renderList();save();
-    };
-    reader.readAsArrayBuffer(file);
-  } else {
-    const reader=new FileReader();
-    reader.onload=ev=>{document.getElementById('importText').value=ev.target.result;previewImport();};
-    reader.readAsText(file);
-  }
-  e.target.value='';
-}
-function parseLines(){return document.getElementById('importText').value.split(/[\n,;]+/).map(l=>l.trim().replace(/^["']|["']$/g,'')).filter(l=>l.length>0&&l.length<=20);}
-function previewImport(){const n=parseLines().length;document.getElementById('importCount').textContent=n?`${n} nombre${n!==1?'s':''}…`:'';}
-function doImport(){
-  const names=parseLines();if(!names.length){setStatus('No se encontraron nombres');return;}
-  const group=document.getElementById('importGroup').value;
-  const color=GROUPS[group].color;
-  let added=0;
-  names.forEach(name=>{
-    if(guests.find(g=>g.name.toLowerCase()===name.toLowerCase()))return;
-    const g={id:nextGid++,name:name.substring(0,16),color,group,tableId:null};
-    guests.push(g);sprites.push(new Sprite(g));added++;
-  });
-  closeImport();setStatus(`${added} importados! ✓`);renderList();save();
-}
-
-// Tables
-function openSetup(){document.getElementById('setupModal').classList.add('open');}
-function closeSetup(){document.getElementById('setupModal').classList.remove('open');}
-function doSetup(replace){
-  const count=Math.max(1,Math.min(40,parseInt(document.getElementById('setupCount').value)||5));
-  const cap=Math.max(1,Math.min(30,parseInt(document.getElementById('setupCap').value)||8));
-  const prefix=(document.getElementById('setupPrefix').value.trim()||'Mesa').substring(0,10);
-  if(replace){if(!confirm(`¿Eliminar todas las mesas y crear ${count} nuevas?`))return;guests.forEach(g=>g.tableId=null);tables=[];}
-  for(let i=0;i<count;i++)tables.push({id:nextTid++,name:`${prefix} ${tables.length+1}`,capacity:cap,gx:2,gy:2,tw:70,th:35,hovered:false});
-  layoutTables();closeSetup();setStatus(`${count} mesa${count!==1?'s':''} listas!`);renderList();save();
+  guests=guests.filter(x=>x.id!==id); sprites=sprites.filter(s=>s.guestId!==id);
+  if(selectedGuest&&selectedGuest.id===id)selectedGuest=null; renderListSidebar();
 }
 function addTable(){
   const inp=document.getElementById('tableNameInp'),name=inp.value.trim()||`Mesa ${nextTid}`;
   tables.push({id:nextTid++,name:name.substring(0,14),capacity:8,gx:2,gy:2,tw:70,th:35,hovered:false});
-  inp.value='';layoutTables();setStatus(`${name} agregada!`);save();
+  inp.value='';layoutTables();setStatus(`${name} agregada!`);
 }
-function openModal(id){
-  editingTableId=id;const t=tables.find(x=>x.id===id);
-  document.getElementById('mName').value=t.name;document.getElementById('mCap').value=t.capacity;
-  document.getElementById('tModal').classList.add('open');
+function openSetup(){document.getElementById('setupModal').classList.add('open');}
+function closeSetup(){document.getElementById('setupModal').classList.remove('open');}
+function doSetup(replace){
+  const count=Math.max(1,parseInt(document.getElementById('setupCount').value)||5), cap=parseInt(document.getElementById('setupCap').value)||8, prefix=document.getElementById('setupPrefix').value.trim()||'Mesa';
+  for(let i=0;i<count;i++)tables.push({id:nextTid++,name:`${prefix} ${tables.length+1}`,capacity:cap,gx:2,gy:2,tw:70,th:35,hovered:false});
+  layoutTables();closeSetup();setStatus(`${count} mesas generadas!`); renderListSidebar();
 }
-function closeModal(){editingTableId=null;document.getElementById('tModal').classList.remove('open');}
+function openModal(id){ editingTableId=id; const t=tables.find(x=>x.id===id); document.getElementById('mName').value=t.name; document.getElementById('mCap').value=t.capacity; document.getElementById('tModal').classList.add('open'); }
+function closeModal(){ editingTableId=null; document.getElementById('tModal').classList.remove('open'); }
 function saveModal(){
-  const t=tables.find(x=>x.id===editingTableId);if(!t){closeModal();return;}
+  const t=tables.find(x=>x.id===editingTableId); if(!t)return;
   const n=document.getElementById('mName').value.trim(),c=parseInt(document.getElementById('mCap').value);
-  if(n)t.name=n.substring(0,14);if(c>0)t.capacity=c;
-  closeModal();setStatus(`${t.name} actualizada!`);save();
+  if(n)t.name=n.substring(0,14); if(c>0)t.capacity=c; closeModal(); setStatus(`Mesa actualizada!`);
 }
 function deleteTable(){
-  const t=tables.find(x=>x.id===editingTableId);if(!t){closeModal();return;}
-  guests.forEach(g=>{if(g.tableId===editingTableId)g.tableId=null;});
-  tables=tables.filter(x=>x.id!==editingTableId);
-  layoutTables();closeModal();setStatus(`${t.name} eliminada`);renderList();save();
+  tables=tables.filter(x=>x.id!==editingTableId); guests.forEach(g=>{if(g.tableId===editingTableId)g.tableId=null;}); layoutTables(); closeModal(); renderListSidebar();
 }
-function clearAll(){if(!confirm('¿Desasignar a todos?'))return;guests.forEach(g=>g.tableId=null);setStatus('Todos desasignados!');renderList();save();}
+function clearAll(){ guests.forEach(g=>g.tableId=null); setStatus('Todos desasignados!'); renderListSidebar(); }
 function autoAssign(){
-  const free=guests.filter(g=>g.tableId===null);if(!free.length){setStatus('¡Ya todos sentados!');return;}
+  const free=guests.filter(g=>g.tableId===null);
   let n=0;free.forEach(g=>{for(const t of tables){if(guests.filter(x=>x.tableId===t.id).length<t.capacity){g.tableId=t.id;n++;break;}}});
-  setStatus(`Auto-asignados: ${n} ✓`);renderList();save();
+  setStatus(`Auto-asignados: ${n} ✓`); renderListSidebar();
 }
-
-// Export
-function openExport(){document.getElementById('exportModal').classList.add('open');}
-function closeExport(){document.getElementById('exportModal').classList.remove('open');}
-function exportXLSX(){
-  const wb=XLSX.utils.book_new();
-  const header=['Nombre','Grupo','Mesa (opcional)','Notas','Email (opcional)','Teléfono (opcional)'];
-  const rows=[header];
-  guests.forEach(g=>{const t=g.tableId?tables.find(x=>x.id===g.tableId):null;rows.push([g.name,GROUPS[g.group].label,t?t.name:'','','','']);});
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),'Invitados');
-  const rows2=[['Mesa','Capacidad','Invitado','Grupo']];
-  tables.forEach(t=>{const gs=guests.filter(g=>g.tableId===t.id);if(!gs.length)rows2.push([t.name,t.capacity,'(vacía)','']);else gs.forEach((g,i)=>rows2.push([i===0?t.name:'',i===0?t.capacity:'',g.name,GROUPS[g.group].label]));rows2.push(['','','','']);});
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows2),'Plan de Mesas');
-  const rows3=[['Grupo','Total','Asignados','Sin Mesa']];
-  Object.entries(GROUPS).forEach(([k,v])=>{const total=guests.filter(g=>g.group===k).length;const asig=guests.filter(g=>g.group===k&&g.tableId!==null).length;rows3.push([v.label,total,asig,total-asig]);});
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows3),'Resumen');
-  XLSX.writeFile(wb,'plan-mesas.xlsx');closeExport();setStatus('Exportado como Excel ✓');
-}
-function exportTxt(){
-  let txt='=== PLAN DE MESAS — WeddingBoy™ ===\n\n';
-  tables.forEach(t=>{const gs=guests.filter(g=>g.tableId===t.id);txt+=`${t.name} (${gs.length}/${t.capacity}):\n`;gs.forEach(g=>txt+=`  - ${g.name} [${GROUPS[g.group].label}]\n`);if(!gs.length)txt+=`  (vacía)\n`;txt+='\n';});
-  const u=guests.filter(g=>g.tableId===null);if(u.length){txt+=`SIN ASIGNAR:\n`;u.forEach(g=>txt+=`  - ${g.name} [${GROUPS[g.group].label}]\n`);}
-  dl('plan-mesas.txt',txt,'text/plain');closeExport();setStatus('Exportado TXT ✓');
-}
-function exportJSON(){
-  dl('plan-mesas.json',JSON.stringify({tables:tables.map(t=>({name:t.name,capacity:t.capacity,guests:guests.filter(g=>g.tableId===t.id).map(g=>({name:g.name,group:GROUPS[g.group].label}))})),unassigned:guests.filter(g=>g.tableId===null).map(g=>({name:g.name,group:GROUPS[g.group].label}))},null,2),'application/json');
-  closeExport();setStatus('Exportado JSON ✓');
-}
-function dl(f,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=f;a.click();URL.revokeObjectURL(a.href);}
 function setStatus(msg){document.getElementById('statusBar').textContent=msg;}
 
-// Render sidebar list
-function renderList(){
-  const list=document.getElementById('guestList');list.innerHTML='';
+function renderListSidebar(){
+  const list=document.getElementById('guestList'); list.innerHTML='';
   const filtered=activeFilter==='all'?guests:guests.filter(g=>g.group===activeFilter);
   filtered.forEach(g=>{
-    const chip=document.createElement('div');
-    chip.className='g-chip'+(g.tableId!==null?' seated':'')+(selectedGuest&&selectedGuest.id===g.id?' selected':'');
-    const avatar=makeChipCanvas(g);
-    chip.appendChild(avatar);
+    const chip=document.createElement('div'); chip.className='g-chip'+(g.tableId!==null?' seated':'')+(selectedGuest&&selectedGuest.id===g.id?' selected':'');
+    const avatar=makeChipCanvas(g); chip.appendChild(avatar);
     const info=document.createElement('div');info.className='g-chip-info';
     const nm=document.createElement('div');nm.className='g-chip-name';nm.textContent=g.name;
     const grp=document.createElement('div');grp.className=g.tableId!==null?'g-chip-status':'g-chip-group';
     grp.textContent=g.tableId!==null?`✓ ${tables.find(t=>t.id===g.tableId)?.name||'Mesa'}`:GROUPS[g.group].label;
     info.appendChild(nm);info.appendChild(grp);
     const del=document.createElement('div');del.className='g-chip-del';del.textContent='×';
-    chip.appendChild(info);chip.appendChild(del);
-    chip.addEventListener('click',()=>{
-      if(selectedGuest&&selectedGuest.id===g.id){selectedGuest=null;setStatus('Selección cancelada');}
-      else{selectedGuest=g;setStatus(`${g.name} — hacé click en una mesa para sentarlo`);}
-      renderList();
-    });
+    chip.addEventListener('click',()=>{ if(selectedGuest&&selectedGuest.id===g.id){selectedGuest=null;setStatus('Selección cancelada');}else{selectedGuest=g;setStatus(`${g.name} — hacé click en una mesa`);} renderListSidebar(); });
     del.addEventListener('click',e=>{e.stopPropagation();removeGuest(g.id);});
-    list.appendChild(chip);
+    chip.appendChild(info);chip.appendChild(del); list.appendChild(chip);
   });
   document.getElementById('sTot').textContent=guests.length;
   const s=guests.filter(g=>g.tableId!==null).length;
-  document.getElementById('sSeat').textContent=s;
-  document.getElementById('sFree').textContent=guests.length-s;
-  document.getElementById('cNovio').textContent=guests.filter(g=>g.group==='novio').length;
-  document.getElementById('cNovia').textContent=guests.filter(g=>g.group==='novia').length;
-  document.getElementById('cFNovio').textContent=guests.filter(g=>g.group==='fnovio').length;
-  document.getElementById('cFNovia').textContent=guests.filter(g=>g.group==='fnovia').length;
-  document.getElementById('cANovio').textContent=guests.filter(g=>g.group==='anovio').length;
-  document.getElementById('cANovia').textContent=guests.filter(g=>g.group==='anovia').length;
-  document.getElementById('cAComun').textContent=guests.filter(g=>g.group==='acomun').length;
+  document.getElementById('sSeat').textContent=s; document.getElementById('sFree').textContent=guests.length-s;
 }
 
-// ═══════════════════════════════════════════════
-//  8-BIT MUSIC
-// ═══════════════════════════════════════════════
-let audioCtx=null,musicPlaying=false,musicNodes=[],musicTimers=[];
-const BT=60/88,S=BT/2,Q=BT,H=BT*2,W=BT*4;
-const N={C3:130.81,D3:146.83,E3:164.81,F3:174.61,G3:196,A3:220,B3:246.94,C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99,A5:880,C6:1046.5};
-const MEL=[[N.E5,Q],[N.D5,S],[N.C5,S],[N.E5,H],[N.G5,Q],[N.F5,S],[N.E5,S],[N.G5,H],[N.A5,Q],[N.G5,S],[N.F5,S],[N.E5,Q],[N.D5,Q],[N.C5,W],[N.G4,Q],[N.A4,S],[N.B4,S],[N.C5,H],[N.E5,Q],[N.D5,S],[N.C5,S],[N.B4,H],[N.A4,Q],[N.B4,S],[N.C5,S],[N.D5,Q],[N.E5,Q],[N.C5,W],[N.E5,S],[N.G5,S],[N.A5,S],[N.C6,H],[N.A5,S],[N.G5,S],[N.F5,S],[N.E5,H],[N.D5,Q],[N.E5,Q],[N.G5,Q],[N.E5,W],[N.C5,Q],[N.E5,Q],[N.G5,Q],[N.C6,Q],[N.A5,H],[N.G5,H],[N.F5,Q],[N.E5,Q],[N.D5,Q],[N.C5,W]];
-const BASS=[[N.C3,H],[N.G3,H],[N.A3,H],[N.E3,H],[N.F3,H],[N.C3,H],[N.G3,H],[N.D3,H]];
-const ARPS=[[N.C4,N.E4,N.G4],[N.A3,N.C4,N.E4],[N.F3,N.A3,N.C4],[N.G3,N.B3,N.D4]];
-function mkO(type,freq,vol,t0,t1,ac){
-  if(!freq)return null;
-  const o=ac.createOscillator(),g=ac.createGain();
-  o.type=type;o.frequency.value=freq;
-  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(vol,t0+0.025);
-  g.gain.setValueAtTime(vol,Math.max(t0+0.025,t1-0.06));g.gain.linearRampToValueAtTime(0,t1);
-  o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t1);
-  musicNodes.push(o,g);return o;
-}
-function vib(o,ac,t0){if(!o)return;const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=5;lg.gain.value=2;l.connect(lg);lg.connect(o.frequency);l.start(t0+0.15);l.stop(t0+12);musicNodes.push(l,lg);}
-function playMusic(){
-  if(audioCtx)audioCtx.close();
-  audioCtx=new(window.AudioContext||window.webkitAudioContext)();musicNodes=[];
-  const t0=audioCtx.currentTime+0.1;let t=t0,dur=0;
-  MEL.forEach(([f,d])=>{if(f>0){const o=mkO('square',f,0.09,t,t+d-0.03,audioCtx);vib(o,audioCtx,t);}t+=d;dur+=d;});
-  let bt=t0,be=0;while(be<dur){BASS.forEach(([f,d])=>{if(be>=dur)return;mkO('sawtooth',f,0.05,bt,bt+d-0.04,audioCtx);bt+=d;be+=d;});}
-  let at=t0,ae=0,ci=0;while(ae<dur){const ch=ARPS[ci%ARPS.length];[...ch,...[...ch].reverse().slice(1)].forEach(f=>{if(ae>=dur)return;mkO('triangle',f,0.04,at,at+S*0.8,audioCtx);at+=S;ae+=S;});ci++;}
-  musicTimers.push(setTimeout(()=>{if(musicPlaying)playMusic();},(dur+0.2)*1000));
-}
-function stopMusic(){musicTimers.forEach(t=>clearTimeout(t));musicTimers=[];musicNodes.forEach(n=>{try{n.disconnect();}catch(e){}});musicNodes=[];if(audioCtx){audioCtx.close();audioCtx=null;}}
-function toggleMusic(){
-  const btn=document.getElementById('musicBtn');
-  if(musicPlaying){musicPlaying=false;stopMusic();btn.textContent='♪ MUSIC';btn.classList.remove('music-on');setStatus('Música pausada');}
-  else{musicPlaying=true;playMusic();btn.textContent='■ STOP';btn.classList.add('music-on');setStatus('♪ Vals isométrico — WeddingBoy™');}
-}
-
-// ═══════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════
-document.getElementById('guestInp').addEventListener('keydown',e=>{if(e.key==='Enter')addGuest();});
-document.getElementById('tableNameInp').addEventListener('keydown',e=>{if(e.key==='Enter')addTable();});
-document.getElementById('importText').addEventListener('input',previewImport);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeImport();closeExport();closeSetup();}});
 window.addEventListener('resize',()=>initCanvas());
-
-const loaded=load();if(!loaded)defaults();
-initCanvas();
-guests.forEach(g=>{
-  const sp=new Sprite(g);
-  if(g.tableId!==null){const t=tables.find(x=>x.id===g.tableId);if(t){sp.gx=t.gx+(Math.random()-.5)*0.5;sp.gy=t.gy+(Math.random()-.5)*0.5;updateSpriteScreenPos(sp);}}
-  sprites.push(sp);
-});
-renderList();
-setStatus(loaded?'Datos cargados ✓ — Hacé click en un invitado y luego en una mesa':'¡Bienvenido! Hacé click en un invitado y luego en una mesa para sentarlo');
+defaults(); initCanvas(); guests.forEach(g=>{sprites.push(new Sprite(g));}); renderListSidebar();
 gameLoop();
 </script>
 </body>
